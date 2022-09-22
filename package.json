@@ -1,0 +1,35 @@
+{
+  "name": "node-red-contrib-cx-workspace-addon",
+  "version": "0.0.1",
+  "description": "Node RED Workspace Addon",
+  "keywords": [
+    "node-red",
+    "workspace",
+    "addon",
+    "cx_node_red_workspace_addon",
+    "cx",
+    "controlx",
+    "controlx.io"
+  ],
+  "node-red": {
+    "version": ">=2.0.0",
+    "nodes": {
+      "cx_node_red_workspace_addon": "nodes/cx_node_red_workspace_addon.js"
+    }
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "devDependencies": {
+    "@types/node-red": "^1.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/controlx-io/node-red-contrib-cx-workspace-addon.git"
+  },
+  "bugs": {
+    "url": "https://github.com/controlx-io/node-red-contrib-cx-workspace-addon/issues"
+  },
+  "homepage": "https://github.com/controlx-io/node-red-contrib-cx-workspace-addon#readme",
+  "license": "Apache-2.0"
+}

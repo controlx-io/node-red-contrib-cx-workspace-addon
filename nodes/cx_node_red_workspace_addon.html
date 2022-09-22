@@ -1,0 +1,73 @@
+
+<!-- ############################### WORKSPACE ADDON ################################# -->
+<script type="text/html" data-template-name="workspace-addon">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+  <div class="form-row">
+    <label for="node-input-value"><i class="fa fa-tag"></i> Edges</label>
+    <input type="text" id="node-input-value" placeholder="e.g. 200, 1000">
+  </div>
+</script>
+
+<script type="text/html" data-help-name="workspace-addon">
+  <p>Functionality</p>
+  <ul>
+    <li>1. Set grid boundaries</li>
+  </ul>
+</script>
+
+
+
+<!-- ========================= SCRIPTS ================================ -->
+
+<script type="text/javascript">
+  (function() {
+
+    function setLeftAndRightBorder(boundariesString, isToSet) {
+      const [left, right] = boundariesString.split(",").map(val => val.trim());
+      const value = isToSet ? '3px' : '1px';
+
+      // console.log({left, right, value})
+
+      try {
+        if (left != null)
+          document.querySelector("line.red-ui-workspace-chart-grid-v[x1='" + left + "']").style.strokeWidth = value;
+        if (right != null)
+          document.querySelector("line.red-ui-workspace-chart-grid-v[x1='" + right + "']").style.strokeWidth = value;
+      } catch (e) {console.log("No grid found :(")}
+    }
+
+
+    RED.nodes.registerType("workspace-addon", {
+      category: "common",
+      // color: "#4db6ac",
+      defaults: {
+        name: {value: ""},
+        value: {value: "100, 880"},
+      },
+      // inputs: 1,
+      icon: "hash.png",
+      paletteLabel: "editor",
+      label() {
+        return "editor addon"
+      },
+      async onpaletteadd() {
+
+        const [config, data] = await Promise.all([
+          $.getJSON('__cx_editor_addon/get_config'),
+          $.getJSON('settings/user')
+        ]);
+
+        let gridStep = data.editor.view["view-grid-size"];
+        setLeftAndRightBorder(config.boundariesString, true);
+      },
+
+      async oneditsave() {
+        setLeftAndRightBorder(this.value);
+      }
+    });
+
+  })();
+</script>
